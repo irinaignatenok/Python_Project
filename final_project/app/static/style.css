@@ -1,0 +1,90 @@
+body {
+	font-family: 'Fraunces', serif !important;
+}
+
+.container {
+	position: relative;
+}
+.signup{
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .19);
+	padding: 50px 30px;
+	border-radius: 10px;
+	min-width: 800px;
+	min-height: 500px;
+	margin: 0 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f6f5f7;
+	position: relative;
+	/*overflow: hidden;*/
+}
+.signin{
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .19);
+	padding: 50px 30px;
+	border-radius: 10px;
+	min-width: 800px;
+	min-height: 500px;
+	margin: 0 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f6f5f7;
+	position: relative;
+}
+.appointment{
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .19);
+	padding: 50px 30px;
+	border-radius: 10px;
+	min-width: 800px;
+	min-height: 500px;
+	margin: 0 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f6f5f7;
+	position: relative;
+}
+/* .signup .my_form h1 {
+  font-family: "Montserrat";
+  font-size: 40px;
+  font-weight: 300;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+} */
+
+/*  */
+.signup .form input::placeholder {
+  color: rgba(0, 0, 0, 0.658);
+}
+
+button {
+	display: block;
+	width: 150px;
+	margin: 0 auto;
+	height: 35px;
+	font-family: "Montserrat";
+	font-size: 20px;
+	padding-left: 15px;
+	border: none;
+	background-color: rgba(220, 20, 60, 0.425);
+	outline: none;
+	color: white;
+	font-weight: 200;
+
+}
+
+.container .pictures{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 15px;
+
+	margin-right: 0px;
+	position: relative;
+
+}
+img {
+	margin-bottom: 15px;
+	width: 300px;
+	height: 200px;
+}

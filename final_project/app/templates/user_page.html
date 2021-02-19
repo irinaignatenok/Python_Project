@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{user.name}}</h3>
+{% for product in products %}
+<p>{{product.description}}
+{{product.name}}
+</p>
+  <img src="{{url_for('static', filename = "uploads/" +product.pic_path)}}" class="card-img" alt="..." style = "width:300px; height:300px; margin-bottom: 15px;" >
+
+{% endfor%}
+
+{% endblock %}

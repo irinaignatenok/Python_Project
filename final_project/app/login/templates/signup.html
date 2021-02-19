@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Sign up{% endblock %}
+{% block content %}
+<div class = "signup" >
+<form method="POST">
+       {{ form.hidden_tag() }}
+       <h1>Sign up</h1>
+       <p >
+           {{ form.username(class = "txtb", placeholder = form.username.label.text) }}
+
+       </p>
+       <p>
+           {{ form.email(class = "txtb", placeholder = form.email.label.text) }}
+       </p>
+       <p>
+
+           {{ form.password(class = "txtb", placeholder = form.password.label.text) }}
+       </p>
+
+       {{ form.submit() }}
+   </form>
+  </div>
+{% endblock %}

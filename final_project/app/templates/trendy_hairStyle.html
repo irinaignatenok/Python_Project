@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style = "text-align: center;">Wedding hairstyles</h2>
+<div class = "pictures"
+style = "display: block;"
+>
+{% for product in products %}
+  <h3>
+    {{product.description}}
+    {{product.name}}
+  </h3>
+  <img src="{{url_for('static', filename = "uploads/" +product.pic_path)}}" class="card-img" alt="..." style = "width:300px; height:300px; margin-bottom: 15px;" >
+   <br>
+
+  <form class="form-inline my-2 my-lg-0" method = "post" action= "{{url_for("main_blueprint.trendy_hairstyles", product_id = product.id)}}"  enctype="multipart/form-data">
+    <input type = "submit" name="product_id" value = "{{product.id}}">
+      <!-- <button type="button" name="product_id"><i class="far fa-heart fa-2x"></i></button>  -->
+      <!-- <a href="{{url_for("main_blueprint.trendy_hairstyles")}}" name = "product_id"><i class="far fa-heart fa-2x"></i></a> -->
+  </form>
+{% endfor%}
+<hr>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+{% for appointment in appointments%}
+    <h3>{{appointment.name}}</h3>
+    <h3>{{appointment.phone}}</h3>
+    <h3>{{appointment.date}}</h3>
+    <h3>{{appointment.description}}</h3>
+    <button type="submit" name="button"><a href= '{{url_for("main_blueprint.my_appointment", user_id = appointment.id)}}'>My appointment</a></button>
+{% endfor %}
+{% endblock %}
