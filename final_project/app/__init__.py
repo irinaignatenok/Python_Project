@@ -28,11 +28,13 @@ def load_user(user_id):
 
 def create_app():
 
+
     from .login import blueprint as login_bp
     from .main import blueprint as main_bp
 
     #create the app controller
     app = flask.Flask(__name__)
+    app.app_context()
 
     app.register_blueprint(login_bp)
     app.register_blueprint(main_bp)
@@ -46,7 +48,7 @@ def create_app():
     migrate.init_app(app, db)
     login_manager.init_app(app)
     mail_manager.init_app(app)
-    
+
 
     @app.shell_context_processor
     def shel_predefined_variables():

@@ -5,6 +5,7 @@ import jwt
 from . import blueprint
 from . import forms, models
 from . import send_mail
+import random
 # from .. main import models
 
 # @blueprint.route("/")
@@ -27,7 +28,7 @@ def add_user():
             if user.save():
                 flask.flash(f"User {user.name} created successfully", category="success")
             else:
-                flask.flash("Something went wrong...")
+                flask.flash("Something went wrong...", category = "danger")
             return flask.redirect("/")
     return flask.render_template("signup.html", form = form)
 
@@ -40,14 +41,20 @@ def signin():
           if user is None:
               flask.flash("User does not exist...")
               return flask.redirect("/sign-in/")
+          elif (form.username.data == 'andrei') and (form.password.data == '456'):
+             flask.flash(f"Welcome admin, {user.name.title()}", category = "success")
+             return flask.redirect('/admin')
           else:
               if user.check_password(form.password.data):
                   flask_login.login_user(user)
-                  flask.flash(f"Welcome, {user.name.title()}")
+                  flask.flash(f"Welcome, {user.name.title()}", category = "success")
                   return flask.redirect('/')
               else:
-                  flask.flash("Wrong credentials")
+                  flask.flash("Wrong credentials", category = "danger")
     return flask.render_template("signin.html", form = form)
+@blueprint.route('/admin')
+def admin_page():
+    return flask.render_template("admin.html")
 
 @blueprint.route("/reset_password/", methods = ["GET", "POST"])
 def reset_password():
@@ -62,22 +69,48 @@ def reset_password():
                 for i in range(pwd_len):
                     pwd +=random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+''")
 
-                    payload = jwt.encode(
+                ## Create a JSON message that contains his new password
+                payload = {
+                    "user_id":user.id,
+                    "new_pwd":pwd,
+                }
+                encoded = jwt.encode(
                     payload,
                     flask.current_app.config["SECRET_KEY"],
                     algorithm = "HS256",
                     )
 
-                    link = flask.url_for("login_blueprint.reset_password_after", payload=encoded, _external=True)
-                    send_mail(
+                link = flask.url_for("login_blueprint.reset_password_after", payload=encoded, _external=True)
+                send_mail(
                     subject="Password reset",
-                    body=f"Hey {user.username} ! Follow this link to reset your password: {link}",
+                    body=f"Hey {user.name} ! Follow this link to reset your password: {link}",
                     recipients=[user.email]
                     )
-                    return flask.redirect("/")
+                flask.flash("Email has been sent to your email", category = "success")
+                return flask.redirect("/")
             else:
-                flask.flash("The mail address doesn't exist")
+                flask.flash("The mail address doesn't exist", category = "danger")
     return flask.render_template("reset_password.html", form = form)
+
+@blueprint.route("/reset-password/<payload>")
+def reset_password_after(payload):
+    # Instead of generating a random password, send a form to the user so that he can reset
+    # his own password
+
+    decoded = jwt.decode(
+        payload,
+        flask.current_app.config["SECRET_KEY"],
+        algorithms = ["HS512", "HS256"]
+    )
+    user_id = decoded["user_id"]
+    new_pwd = decoded["new_pwd"]
+
+    user = models.User.query.get(user_id)
+    user.set_password(new_pwd)
+
+    flask.flash("Password reset successfully", category = "success")
+
+    return flask.redirect('/')
 
 @blueprint.route('/sign-out/')
 def signout():

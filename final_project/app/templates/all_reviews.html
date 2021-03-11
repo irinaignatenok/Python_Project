@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Reviews{% endblock %}
+{% block content %}
+<div class="reviews" style="background-color: #f6f5f7; margin: 20px;">
+{% for review in reviews %}
+  <ul>
+    <li style = "margin-left: 25px;"><em>
+    {{review.name.title()}}: </em><br>
+    {{review.reviews}}
+    </li><hr>
+ </ul>
+{% endfor%}
+<button type="button" name="button" class="btn" style = "margin: 20px; margin-left: 25px; background-color:#350303;color:#d8f3f9;"><a href="/reviews" style = "text-decoration: none; color:#d8f3f9;">Leave Feedback</a></button>
+</div>
+{% endblock %}

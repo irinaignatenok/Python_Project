@@ -1,6 +1,7 @@
 import flask
+import flask_mail
 
-from app import db
+from app import db, mail_manager
 
 def send_mail(subject, body, recipients):
     msg = flask_mail.Message(
@@ -24,6 +25,23 @@ class ModelMixin():
         except:
             db.session.rollback()
             return False
+
+
+
+class DeleteItem():
+
+    id = db.Column(db.Integer(), primary_key = True)
+
+    def delete_item(self):
+        db.session.delete(self)
+
+        try:
+            db.session.commit()
+            return True
+        except:
+            db.session.rollback()
+            return False
+
 
 class FormUtils():
 

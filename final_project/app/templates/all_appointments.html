@@ -1,10 +1,14 @@
-{% extends "base.html" %}
+{% extends "admin.html" %}
 {% block content %}
 {% for appointment in appointments%}
-    <h3>{{appointment.name}}</h3>
-    <h3>{{appointment.phone}}</h3>
-    <h3>{{appointment.date}}</h3>
-    <h3>{{appointment.description}}</h3>
-    <button type="submit" name="button"><a href= '{{url_for("main_blueprint.my_appointment", user_id = appointment.id)}}'>My appointment</a></button>
+<ul>
+  <li>
+    <h5>{{appointment.name}}</h5>
+    <h5>{{appointment.phone}}</h5>
+    <h5>{{appointment.date}}</h5>
+    <h5>{{appointment.description}}</h5>
+    <button type="submit" name="button"><a href= "/admin-delete-appointment/{{appointment.id}}">Delete</a></button>
+ </li>
+</ul>
 {% endfor %}
 {% endblock %}

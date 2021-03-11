@@ -1,0 +1,16 @@
+{% extends "admin.html" %}
+{%block title%}Contacts{% endblock %}
+{% block content %}
+{% for message in messages %}
+
+<ul>
+  <li>
+    <h3>{{message.name}}</h3>
+    {{message.email}}<br>
+    {{message.message}}
+  </li>
+</ul>
+<button type="button" name="button" class="btn btn-secondary" style = "margin-left: 25px;"><a href="/reply" style = "text-decoration: none; color:#d8f3f9;">Reply</a></button>
+<hr>
+{% endfor %}
+{% endblock%}

@@ -6,53 +6,58 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="/static/style.css" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,300&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
         <link rel="shortcut icon" href="{{url_for("static", filename = "favicon.ico")}}">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 
     </head>
     <body>
+      <!-- ## JUMBOTRON -->
+      <div class= "search" style="background-color: #350303; height:50px;">
+          <form class="form-inline my-2 my-lg-0" action = "{{ url_for("main_blueprint.search_product")}}" method = "post">
+          <input class="form-control me-2" type="search" placeholder="Search for a new style" aria-label="Search" name = "pr_user" style="margin: 5px; margin-left: auto;"><br>
+            <button class="btn btn-light  my-2 my-sm-0"  style = "color:#350303; margin-right: 5px;" type="submit">Search</button>
+          </form>
+      </div>
         <!-- Navbar Beginning -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="/">Tati Style</a>
-
-
+        <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top" style = "background-color:#f6f5f7; color: #d8f3f9;">
+          <a class="navbar-brand" href="/">TATI STYLE.COM</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="/trendy-hairstyle">Trendy hairstyles<span class="sr-only">(current)</span></a>
+                <li class="nav-item dropdown active">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+                  </a>
+                  <div class="dropdown-menu" style = "color:#350303;" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" style = "color:#350303;" href="/wedding-hairstyle">Wedding Hairstyles</a>
+                    <a class="dropdown-item" style = "color:#350303;" href="/evening-hairstyle">Evening Hairstyles</a>
+                    <a class="dropdown-item" style = "color:#350303;" href="/coloring">Coloring</a>
+                    <a class="dropdown-item" style = "color:#350303;" href="/haircut">Haircuts</a>
+                  </div>
+                </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="/all-reviews">Reviews<span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
-
+              </li>
+              <li class="nav-item active">
                 <a class="nav-link" href="/user-favorite-product">Favorite</a>
-
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="/my-appointment">My appointment</a>
               </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/contact">Contact</a>
+              </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" method = "post" action="{{ url_for("main_blueprint.search_product")}}" enctype="multipart/form-data">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name = "pr_user" >
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+
           </div><br>
           {% if current_user.is_authenticated %}
-              <a class="navbar-brand" href="#">Welcome {{ current_user.name }}</a>
+              <a class="navbar-brand" href="#">Welcome {{ current_user.name.title() }}</a>
               <a class="navbar-brand" href="/sign-out/">Sign out</a>
           {% else %}
               <a class="navbar-brand" href="/sign-in/">Sign in</a>
@@ -60,20 +65,20 @@
           {% endif %}
         </nav>
         <!-- Navbar Ends -->
-        <div class="jumbotron jumbotron-fluid" style = "background-color: #dfd6de; color: #d8f3f9;">
-   <div class="container">
-           <h1 class="display-4">Tati Style</h1>
-           <p class="lead">Find the best hairstyle you've always wanted to try. <br>Look for a new hairstyle for your next big event.</p>
-           <button type="button" class="btn btn-secondary"><a href = "/make-appointment" style = "text-decoration: none; color:#d8f3f9;">Book an Appointment</a></button><br>
-       </div><br>
- </div>
 
         <div class="container">
 
             {% for category, msg in get_flashed_messages(with_categories=True) %}
-                <div class="alert {{ category }}" role="alert">
+            {% if category == "success" %}
+                <div class="alert alert-{{category}} mb-3" role="alert">
                     {{ msg }}
                 </div>
+            {% endif %}
+            {% if category == "danger" %}
+            <div class="alert alert-danger mb-3" role="alert">
+               {{msg}}
+             </div>
+             {% endif %}
             {% endfor %}
 
             {% block content %}{% endblock %}

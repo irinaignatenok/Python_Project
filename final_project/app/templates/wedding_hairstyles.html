@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class = "headers" style="display: block;">
+    <h2 style = "text-align: center;margin-top: 20px;color:#f6f5f7;">Wedding hairstyles</h2><br>
+    <button type="button" class="btn btn-light  my-2 my-sm-0" style= "margin-top: 10px;display:flex; flex-flow:row wrap; align-items:center; text-align:center; background-color:#350303; color:#d8f3f9;"><a href = "/make-appointment" style = "text-decoration: none; color:#d8f3f9;">Book an Appointment</a></button><br>
+</div>
+<div class = "pictures">
+{% for product in products %}
+  <form class="form-inline my-2 my-lg-0" method = "post" action= "{{url_for("main_blueprint.wedding_hairstyles", prod_id = product.id)}}"  enctype="multipart/form-data">
+    <img src="{{url_for('static', filename = "uploads/" +product.pic_path)}}"style = "width:330px; height:380px; border-radius: 10px; margin: 15px;" >
+    <!-- <input type = "submit" name="product_id" value = "Like"> -->
+    <button type="submit" name="button" style="border:none; margin: 15px;"><a href="{{url_for("main_blueprint.wedding_hairstyles", prod_id = product.id)}}"><i class="fas fa-heart fa-3x" style="color:#350303"></i></a></button>
+</form>
+{% endfor%}
+</div>
+{% endblock %}

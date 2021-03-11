@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-<h3>{{user.name}}</h3>
-{% for product in products %}
-<p>{{product.description}}
-{{product.name}}
-</p>
-  <img src="{{url_for('static', filename = "uploads/" +product.pic_path)}}" class="card-img" alt="..." style = "width:300px; height:300px; margin-bottom: 15px;" >
+<h3  style= "color:#f6f5f7; margin: 15px;">Welcome {{user.name.title()}}</h3>
+<div class="row row-cols-1 row-cols-md-3">
+  <div class="col">
+  <div class="card h-100">
+    {% for product in products %}
+      <form method = "post" action="{{ url_for("main_blueprint.user_favorite_product", prod_id = product.id)}}" enctype="multipart/form-data">
+          <img src="{{url_for('static', filename = "uploads/" +product.pic_path)}}" class="card-img-top" alt="..." >
+          <div class="card-body">
+            <h5 class="card-title">{{product.name.title()}}</h5>
 
-{% endfor%}
-
+         </div>
+          <input class="form-control mr-sm-2" type="submit" placeholder="Search" aria-label="Search" name = "product_id" value = "Remove"  style = "margin-bottom: 10px; background-color:#350303; color: #d8f3f9;">
+      </form>
+  {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}

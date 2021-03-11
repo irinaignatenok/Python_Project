@@ -1,10 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-
+<div class = "headers" style="display: block;">
+    <h2 style = "text-align: center;margin-top: 20px;color:#350303;">Wedding hairstyles</h2><br>
+    <button type="button" class="btn btn-light  my-2 my-sm-0" style= "margin-top: 10px;display:flex; flex-flow:row wrap; align-items:center; text-align:center; background-color:#350303; color:#d8f3f9;"><a href = "/make-appointment" style = "text-decoration: none; color:#d8f3f9;">Book an Appointment</a></button><br>
+</div>
+<div class = "pictures">
 {% for product in products%}
-<p>{{product.name}}</p>
-<p>{{product.description}}</p>
-<img src="{{url_for('static', filename = "uploads/" +product.pic_path)}}" class="card-img" alt="..." style = "width:300px; height:300px; margin-bottom: 15px;" >
-
+  <form class="form-inline my-2 my-lg-0" method = "post" action= "{{url_for("main_blueprint.wedding_hairstyles", prod_id = product.id)}}"  enctype="multipart/form-data">
+      <img src="{{url_for('static', filename = "uploads/" +product.pic_path)}}"  style = "width:330px; height:380px; margin-bottom: 15px;border-radius: 10px;" >
+      <div class = "content">
+          <h4 style = "color:#f6f5f7;">{{product.name.title()}}</h4>
+          
+      </div>
+  </form>
 {% endfor %}
+</div>
 {% endblock%}

@@ -1,6 +1,7 @@
 import flask_login
 
 from . import ModelMixin
+from . import DeleteItem
 from . import db
 
 
@@ -15,8 +16,9 @@ appointment_user = db.Table("appointment_user",
                         db.Column("product_id", db.ForeignKey("appointment.id"), primary_key = True)
                         )
 
-class Product(db.Model, ModelMixin):
+class Product(db.Model, ModelMixin, DeleteItem):
     __searchable__ = ['name', 'description']
+    id = db.Column(db.Integer(), primary_key = True)
     # title       = db.Column(db.String(100), nullable = False)
     name = db.Column(db.String(100))
     description = db.Column(db.String(100), nullable = False)
@@ -29,6 +31,18 @@ class Product(db.Model, ModelMixin):
     def get_pic_url(self):
         return "/static/uploads/" + self.pic_path
 
+class Reviews(db.Model,ModelMixin):
+    id = db.Column(db.Integer(), primary_key = True)
+    name = db.Column(db.String(64))
+    reviews = db.Column(db.String(200))
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
+
+class Contact(db.Model, ModelMixin):
+    id = db.Column(db.Integer(), primary_key = True)
+    name = db.Column(db.String(64))
+    phone = db.Column(db.Integer())
+    email = db.Column(db.String(64), unique = True, nullable = False)
+    message = db.Column(db.Text)
 
 class Appointment(db.Model, ModelMixin):
     id = db.Column(db.Integer(), primary_key = True)

@@ -1,0 +1,10 @@
+body {
+	font-family: 'Fraunces', serif !important;
+	background-color: #350303 !important;
+}
+.navbar li a {
+	color: #f6f5f7;
+}
+a {
+	color: #350303;
+}

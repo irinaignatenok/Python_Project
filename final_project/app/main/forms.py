@@ -16,3 +16,17 @@ class AppointmentForm(flask_wtf.FlaskForm):
     time = TimeField("Time: ")
     description = wtforms.StringField("What kind of service would you like? ")
     submit = wtforms.SubmitField("Book an Appointment")
+
+class ReviewsForm(flask_wtf.FlaskForm):
+
+    name = wtforms.StringField("Name: ")
+    reviews = wtforms.StringField("Reviews: ")
+
+    submit = wtforms.SubmitField("Leave feedback: ")
+
+class ContactForm(flask_wtf.FlaskForm):
+    name = wtforms.StringField("Name: ")
+    phone = wtforms.IntegerField("Phone: ")
+    email = wtforms.StringField("Email: ")
+    message = wtforms.TextAreaField("Message: ")
+    submit = wtforms.SubmitField("Send: ")

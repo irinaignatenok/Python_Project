@@ -3,8 +3,8 @@ import werkzeug
 from werkzeug import security
 from . import db
 from . import ModelMixin
-
-class User(db.Model, flask_login.UserMixin, ModelMixin):
+from . import DeleteItem
+class User(db.Model, flask_login.UserMixin, ModelMixin, DeleteItem):
 
     id = db.Column(db.Integer(), primary_key = True, autoincrement=True)
     name = db.Column(db.String(64), nullable = False, unique = True)
@@ -12,7 +12,8 @@ class User(db.Model, flask_login.UserMixin, ModelMixin):
     password = db.Column(db.String(512), nullable = False)
 
     sell_products = db.relationship("Product", backref = "seller")
-    liked_products = db.relationship("Product", secondary = "products_likes", backref = "likers")
+    liked_products = db.relationship("Product", secondary = "products_likes",
+                                        backref = 'likers')
     user_appointment = db.relationship("Appointment", secondary = "appointment_user", backref = "appointment_user")
 
     def set_password(self, new):

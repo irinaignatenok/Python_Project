@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<div class = "appointment">
-<h3 style = "text-align:center;">Welcome, {{user.name.title()}}</h3><hr>
+<div class = "my_appointment" style= "background-color: #f6f5f7;">
+<h3 style = "text-align:center; margin-top: 15px;">Welcome, {{user.name.title()}}</h3><hr>
 
   {% for appointment in appointments %}
- <p>
-
-   <h3>Your appointment is scheduled for {{appointment.date}}</h3>
-   <h3>Type of service: {{appointment.description}}</h3>
-
-   <!-- <button type="button" name="button" class="btn btn-secondary"><a href="/delete-appointment/{{appointment.id}}" style = "text-decoration: none; color:#d8f3f9;">Delete</a></button> -->
- </p>
+ <ul>
+    <li>Your appointment is scheduled for <b>{{appointment.date}}</b><br>
+        Type of service: {{appointment.description}}
+    </li>
+   <button type="button" name="button" class="btn" style="margin-top: 10px; background-color:#350303; color: #d8f3f9; margin-bottom: 15px;"><a href="/delete-appointment/{{appointment.id}}" style = "text-decoration: none; color:#d8f3f9;">Cancel</a></button>
+ </ul>
  {% endfor%}
  </div>
-
+<hr>
 {% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{%block title%}Contacts{% endblock %}
+{% block content %}
+<div style = "margin-left: 25px; margin: 15px; padding: 15px; background-color: #f6f5f7;">
+<h1>Contact me</h1>
+<p>Feel free to contact me at<br>
+<a href="#">0532215709</a> or <br>
+<email:b>tati_style@gmail.com</email:b> </p>
+<p>Sunday - Friday 9am - 7pm </p><hr>
+
+<form method = "POST" novalidate>
+  {{form.hidden_tag()}}
+
+  <p>
+    {{form.name.label}}
+    {{form.name()}}
+  </p>
+    <p>
+    {{form.phone.label}}
+    {{form.phone()}}
+    </p>
+  <p>
+
+    {{form.email.label}}
+    {{form.email()}}
+
+  </p>
+  <p>
+
+    {{form.message.label}}
+    {{form.message()}}
+
+  </p>
+  <p>
+    {{form.submit()}}
+  </p>
+
+</form>
+</div>
+{% endblock %}
